@@ -403,7 +403,7 @@ body {
     gap: 5px;
     width: 100%;
     justify-content: flex-end;
-    padding-right: 30px;
+    padding-right: 60px;
 }
 
 .volume img {
@@ -644,10 +644,11 @@ body {
         padding-right: 1px;
         padding-left: 1px;
     }
-    .volume img {
-    width: 25px;
-    padding-left: 10px;
+    .volume {
+display: none;
 }
+
+
     .songtime {
         font-size: 13px;
     }

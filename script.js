@@ -4,6 +4,9 @@ const currentSong = new Audio();
 let songs = [];
 let currFolder = "";
 
+// Enable cross-origin requests for GitHub hosting
+currentSong.crossOrigin = "anonymous";
+
 // DOM Elements
 const playBtn = document.querySelector("#play");
 const previousBtn = document.querySelector("#previous");
@@ -200,16 +203,15 @@ function setupControls() {
         }
         updateVolumeIcon(currentSong.volume);
     });
-}
-// Add an event listener for hamburger
-    document.querySelector(".hamburger").addEventListener("click", () => {
-        document.querySelector(".left").style.left = "0"
-    })
 
-    // Add an event listener for close button
+    document.querySelector(".hamburger").addEventListener("click", () => {
+        document.querySelector(".left").style.left = "0";
+    });
+
     document.querySelector(".close").addEventListener("click", () => {
-        document.querySelector(".left").style.left = "-120%"
-    })
+        document.querySelector(".left").style.left = "-120%";
+    });
+}
 
 // Update volume icon based on mute state and volume level
 function updateVolumeIcon(volume) {
