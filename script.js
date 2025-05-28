@@ -20,7 +20,7 @@ const volumeInput = document.querySelector(".range input");
 const volumeIcon = document.querySelector(".volume img");
 const progressCircle = document.querySelector(".circle");
 
-// Utility: format seconds to MM:SS
+// Utility: Format seconds to MM:SS
 function secondsToMinutesSeconds(seconds) {
     if (isNaN(seconds) || seconds < 0) return "00:00";
     const m = Math.floor(seconds / 60);
@@ -31,7 +31,7 @@ function secondsToMinutesSeconds(seconds) {
 // Fetch album folders
 async function getFolders() {
     try {
-        const res = await fetch("./songs/albums.json");
+        const res = await fetch("./albums.json");
         if (!res.ok) throw new Error("Failed to fetch albums.json");
         const folders = await res.json();
         return Array.isArray(folders) && folders.length > 0 ? folders : [];
@@ -54,15 +54,15 @@ async function displayAlbums(folders) {
             card.classList.add("card");
             card.dataset.folder = folder;
             card.innerHTML = `
-        <div class="play">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M5 20V4L19 12L5 20Z" stroke="#141B34" fill="#000" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <img src="./songs/${encodeURIComponent(folder)}/cover.jpg" alt="Cover for ${data.title}" />
-        <h2>${data.title}</h2>
-        <p>${data.description}</p>
-      `;
+                <div class="play">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 20V4L19 12L5 20Z" stroke="#141B34" fill="#000" stroke-width="1.5" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <img src="./songs/${encodeURIComponent(folder)}/cover.jpg" alt="Cover for ${data.title}" />
+                <h2>${data.title}</h2>
+                <p>${data.description}</p>
+            `;
 
             cardContainer.appendChild(card);
 
@@ -79,18 +79,18 @@ function loadSongsFromInfo(folder, songArray) {
     songs = songArray;
 
     songListUl.innerHTML = songs.map((song, i) => `
-    <li data-index="${i}">
-      <img class="invert" width="34" src="img/music.svg" alt="music icon" />
-      <div class="info">
-        <div>${song.title}</div>
-        <div>${song.artist}</div>
-      </div>
-      <div class="playnow">
-        <span>Play Now</span>
-        <img class="invert" src="img/play.svg" alt="play icon" />
-      </div>
-    </li>
-  `).join("");
+        <li data-index="${i}">
+          <img class="invert" width="34" src="img/music.svg" alt="music icon" />
+          <div class="info">
+            <div>${song.title}</div>
+            <div>${song.artist}</div>
+          </div>
+          <div class="playnow">
+            <span>Play Now</span>
+            <img class="invert" src="img/play.svg" alt="play icon" />
+          </div>
+        </li>
+    `).join("");
 
     songListUl.querySelectorAll("li").forEach(li => {
         li.addEventListener("click", () => {
@@ -128,13 +128,6 @@ function playMusic(trackFileName, pause = false) {
         currentSong.pause();
         playBtn.src = "img/play.svg";
     }
-}
-
-// Get the index of the current song
-function getCurrentSongIndex() {
-    if (!currentSong.src) return -1;
-    const currentFile = decodeURIComponent(currentSong.src.split("/").pop());
-    return songs.findIndex(s => s.fileName === currentFile);
 }
 
 // Update the seekbar's background fill for progress effect
@@ -176,46 +169,17 @@ function setupControls() {
         songTimeDiv.textContent = `${secondsToMinutesSeconds(currentSong.currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`;
     });
 
-    seekBar.addEventListener("click", e => {
-        const rect = seekBar.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const percent = (clickX / seekBar.clientWidth) * 100;
-
+    seekBar.addEventListener("input", e => {
+        const percent = e.target.value;
         progressCircle.style.left = `${percent}%`;
         updateSeekbarBackground(percent);
-
         currentSong.currentTime = (currentSong.duration * percent) / 100;
     });
 
     volumeInput.addEventListener("input", () => {
         currentSong.muted = false;
         currentSong.volume = volumeInput.value / 100;
-        updateVolumeIcon(currentSong.volume);
     });
-
-    volumeIcon.addEventListener("click", () => {
-        if (currentSong.muted) {
-            currentSong.muted = false;
-            volumeInput.value = currentSong.volume * 100;
-        } else {
-            currentSong.muted = true;
-            volumeInput.value = 0;
-        }
-        updateVolumeIcon(currentSong.volume);
-    });
-
-    document.querySelector(".hamburger").addEventListener("click", () => {
-        document.querySelector(".left").style.left = "0";
-    });
-
-    document.querySelector(".close").addEventListener("click", () => {
-        document.querySelector(".left").style.left = "-120%";
-    });
-}
-
-// Update volume icon based on mute state and volume level
-function updateVolumeIcon(volume) {
-    volumeIcon.src = volume === 0 || currentSong.muted ? "img/mute.svg" : "img/volume.svg";
 }
 
 // Initialize the player on page load
@@ -228,10 +192,6 @@ async function init() {
 
     await displayAlbums(folders);
     setupControls();
-
-    currentSong.volume = 0.5;
-    volumeInput.value = 50;
-    updateVolumeIcon(0.5);
 }
 
 window.addEventListener("load", init);
