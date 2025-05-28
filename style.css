@@ -337,7 +337,7 @@ body {
     position: relative;
     bottom: 5px;
     left: 0%;
-    transition: left 0.5s;
+    /* transition: left 0.5s; */
 }
 
 .songbuttons img {
@@ -413,6 +413,7 @@ body {
 .volume .range {
     width: 100px;
 }
+
 
 
 
