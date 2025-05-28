@@ -1,0 +1,60 @@
+.border{
+    border:2px solid red;
+    margin: 3px;
+}
+.flex{
+    display: flex;
+}
+.justify-center{ justify-content: center;
+}
+.items-center{
+    align-items: center;
+}
+.bg-black{
+    background-color: black;
+    color: white;
+}
+.invert{
+    filter: invert(1);
+}
+.bg-grey{
+    background-color: #121212;
+}
+.rounded{
+    border-radius: 7px;
+}
+.m-1{
+    margin: 5px;
+}
+.p-1{
+    padding: 10px;
+}
+
+
+
+
+.install-btn {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 16px;
+    color: rgb(182, 182, 182);
+    text-decoration: none;
+    padding: 8px 3px;
+    margin-left: auto;
+}
+
+.install-btn img {
+    width: 23px;
+}
+.install-btn:hover {
+    color: rgb(243, 241, 241);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(243, 241, 241, 0.7);
+}
+
