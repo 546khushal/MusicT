@@ -94,14 +94,21 @@ function playMusic(track, pause = false) {
         console.warn("No track provided to playMusic");
         return;
     }
+
     currentSong.src = `http://127.0.0.1:5500/MusicT/songs/${currFolder}/` + track;
+    
     if (!pause) {
         currentSong.play();
         play.src = "img/pause.svg";
+    } else {
+        currentSong.pause();
+        play.src = "img/play.svg";
     }
+
     document.querySelector(".songinfo").innerHTML = `<span>${track}</span>`;
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
 }
+
 
 // Display albums dynamically
 async function displayAlbums(folder) {
@@ -185,6 +192,16 @@ async function main() {
             }
         });
 
+        // Add an event listener for hamburger
+        document.querySelector(".hamburger").addEventListener("click", () => {
+            document.querySelector(".left").style.left = "0"
+        })
+
+        // Add an event listener for close button
+        document.querySelector(".close").addEventListener("click", () => {
+            document.querySelector(".left").style.left = "-120%"
+        })
+
         previous.addEventListener("click", () => {
             const currentIndex = getCurrentSongIndex();
             const index = currentIndex > 0 ? currentIndex - 1 : 0;
@@ -216,13 +233,13 @@ async function main() {
         });
 
         // Add an event to volume
-    document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e) => {
-        console.log("Setting volume to", e.target.value, "/ 100")
-        currentSong.volume = parseInt(e.target.value) / 100
-        if (currentSong.volume >0){
-            document.querySelector(".volume>img").src = document.querySelector(".volume>img").src.replace("mute.svg", "volume.svg")
-        }
-    })
+        document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e) => {
+            console.log("Setting volume to", e.target.value, "/ 100")
+            currentSong.volume = parseInt(e.target.value) / 100
+            if (currentSong.volume > 0) {
+                document.querySelector(".volume>img").src = document.querySelector(".volume>img").src.replace("mute.svg", "volume.svg")
+            }
+        })
 
         document.querySelector(".volume>img").addEventListener("click", e => {
             // console.log(e.target)
