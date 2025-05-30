@@ -197,6 +197,10 @@ body {
     padding: 16px;
 
 }
+ .spotifyPlaylists h1 {
+        padding: 4px;
+        font-size: 22px;
+    }
 
 .cardContainer{
     display: flex;
@@ -548,6 +552,10 @@ body {
 .artistlists {
     padding: 16px;
 }
+ .artistlists h1 {
+        padding: 4px;
+        font-size: 22px;
+    }
 
 .artistContainer {
     display: flex;
@@ -673,9 +681,9 @@ body {
         width: 100px;
     }
     .artistContainer .card img {
-        height: 100px;
+        height: 80px;
         /* Adjust image height */
-        width: 100px;
+        width: 80px;
     }
     .spotifyPlaylists{
             padding: 16px;
@@ -848,11 +856,11 @@ body {
         /* Adjust card width for small screens */
     }
 
-    .card img {
+    /* .card img {
         height: 75px;
-        /* Adjust image height */
+        
         width: 75px;
-    }
+    } */
 
     .card h2 {
         font-size: 14px;
