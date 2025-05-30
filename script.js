@@ -17,6 +17,7 @@ const seekBar = document.querySelector(".seekbar");
 const volumeInput = document.querySelector(".range input");
 const volumeIcon = document.querySelector(".volume img");
 const progressCircle = document.querySelector(".circle");
+const artistContainer = document.querySelector(".artistContainer");
 
 function secondsToMinutesSeconds(seconds) {
     if (isNaN(seconds) || seconds < 0) return "00:00";
@@ -49,15 +50,15 @@ async function displayAlbums(folders) {
             card.classList.add("card");
             card.dataset.folder = folder;
             card.innerHTML = `
-        <div class="play">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M5 20V4L19 12L5 20Z" stroke="#141B34" fill="#000" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <img src="./songs/${encodeURIComponent(folder)}/cover.jpg" alt="Cover for ${data.title}" />
-        <h2>${data.title}</h2>
-        <p>${data.description}</p>
-      `;
+                <div class="play">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 20V4L19 12L5 20Z" stroke="#141B34" fill="#000" stroke-width="1.5" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <img src="./songs/${encodeURIComponent(folder)}/cover.jpg" alt="Cover for ${data.title}" />
+                <h2>${data.title}</h2>
+                <p>${data.description}</p>
+            `;
 
             cardContainer.appendChild(card);
 
@@ -73,18 +74,18 @@ function loadSongsFromInfo(folder, songArray) {
     songs = songArray;
 
     songListUl.innerHTML = songs.map((song, i) => `
-    <li data-index="${i}">
-      <img class="invert" width="34" src="img/music.svg" alt="music icon" />
-      <div class="info">
-        <div>${song.title}</div>
-        <div>${song.artist}</div>
-      </div>
-      <div class="playnow">
-        <span>Play Now</span>
-        <img class="invert" src="img/play.svg" alt="play icon" />
-      </div>
-    </li>
-  `).join("");
+        <li data-index="${i}">
+          <img class="invert" width="34" src="img/music.svg" alt="music icon" />
+          <div class="info">
+            <div>${song.title}</div>
+            <div>${song.artist}</div>
+          </div>
+          <div class="playnow">
+            <span>Play Now</span>
+            <img class="invert" src="img/play.svg" alt="play icon" />
+          </div>
+        </li>
+    `).join("");
 
     songListUl.querySelectorAll("li").forEach(li => {
         li.addEventListener("click", () => {
@@ -105,7 +106,7 @@ function playMusic(trackFileName, pause = false) {
 
     const songObj = songs.find(s => s.fileName === trackFileName);
     songInfoDiv.innerHTML = songObj
-        ? `<span>${songObj.title}</span>`
+        ? `<span>${songObj.title} - ${songObj.artist}</span>`
         : `<span>${trackFileName.replace(".mp3", "")}</span>`;
 
     songTimeDiv.textContent = "00:00 / 00:00";
@@ -193,14 +194,6 @@ function setupControls() {
         }
         updateVolumeIcon(currentSong.volume);
     });
-
-    document.querySelector(".hamburger").addEventListener("click", () => {
-        document.querySelector(".left").style.left = "0";
-    });
-
-    document.querySelector(".close").addEventListener("click", () => {
-        document.querySelector(".left").style.left = "-120%";
-    });
 }
 
 function updateVolumeIcon(volume) {
@@ -221,5 +214,85 @@ async function init() {
     volumeInput.value = 50;
     updateVolumeIcon(0.5);
 }
+
+// Adding Artist Data Section
+document.addEventListener("DOMContentLoaded", () => {
+    const artistData = [
+    {
+        name: "Geeta Rabari",
+        description: "A renowned Gujarati folk singer known for her traditional and soulful music.",
+        image: "https://i.pinimg.com/736x/4e/10/34/4e103409466bcbd80d53f735f40523ec.jpg", 
+    },
+    {
+        name: "Chotu Singh Rawna",
+        description: "Popular Rajasthani folk singer with a unique voice and cultural appeal.",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSYhuQL9Ka8Srt8c8bg9jog651vxmwh6Zaug&s", 
+    },
+    {
+        name: "Honey Singh",
+        description: "Famous Indian rapper, music producer, and playback singer known for his chart-topping tracks.",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvdAtMc_9bnEoOGft8FOd-b1tKzHyCyZsw5Q&s", 
+    },
+    {
+        name: "Diljit Dosanjh",
+        description: "Versatile Punjabi artist and actor with a massive fan following worldwide.",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSemxdZfU3B1z368HKc0jpByQAqL5gjI5f6KQ&s", 
+    },
+    {
+        name: "Ajit Kumar",
+        description: "Legendary Tamil actor and playback singer known for his contributions to Indian cinema.",
+        image: "https://static.moviecrow.com/marquee/thunivu-hd-stills-feat-ak-ajith-kumar/210606_thumb_665.jpg", 
+    },
+    {
+        name: "Neha Kakkar",
+        description: "One of the most popular Indian playback singers known for her melodious voice and dance numbers.",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShLl_hhHLXtnYMd9iPiS9rxc4VSHoLDGyWMA&s", 
+    },
+    {
+        name: "Arijit Singh",
+        description: "Acclaimed Indian playback singer known for his soulful voice and numerous Bollywood hits.",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1X_aYyKSDQOYdnH9SI8_QSoEYPYU_PQWXow&s", 
+    },
+    {
+        name: "Shreya Ghoshal",
+        description: "Award-winning playback singer with a melodious voice and a huge repertoire of hit songs.",
+        image: "https://i.pinimg.com/736x/b5/69/c2/b569c21b4efb6f21e72e805359284fbb.jpg", 
+    },
+    {
+        name: "Badshah",
+        description: "Famous Indian rapper and music producer known for his peppy beats and viral songs.",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRItEixREdkd0VXvJJHbkFgIWsr-24olPU4mg&s", 
+    },
+    {
+        name: "Sonu Nigam",
+        description: "Versatile and iconic playback singer with a career spanning multiple decades.",
+        image: "https://i.pinimg.com/736x/3a/29/bf/3a29bf3ecfe972975ed82dd296e96441.jpg", 
+    },
+    {
+        name: "Lata Mangeshkar",
+        description: "Legendary playback singer known as the 'Nightingale of India.'",
+        image: "https://i.pinimg.com/736x/eb/f2/14/ebf2149efe8f2d905455d2fe85a2e725.jpg", 
+    },
+    {
+        name: "Kishore Kumar",
+        description: "Legendary playback singer and actor known for his versatility and evergreen songs.",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9exUF_skLW8erAcvGpkkBrBPFQuCxp1SWbw&s", 
+    }
+];
+
+
+    artistData.forEach(artist => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        card.innerHTML = `
+            <img src="${artist.image}" alt="${artist.name}" />
+            <h2>${artist.name}</h2>
+            <p>${artist.description}</p>
+        `;
+
+        artistContainer.appendChild(card);
+    });
+});
 
 window.addEventListener("load", init);
