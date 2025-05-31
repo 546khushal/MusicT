@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="utility.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <base href="./"> <!-- Added base href -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="utility.css" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <base href="./" />
     <title>Music-T - Web Player: Music for LJ World</title>
 </head>
 
@@ -15,18 +15,20 @@
     <div class="container flex bg-black">
         <div class="left">
             <div class="close">
-                <img width="30" class="invert" src="img/close.svg" alt="close">
+                <img width="30" class="invert" src="img/close.svg" alt="close" />
             </div>
             <div class="home bg-grey rounded m-1 p-1">
-                <div class="logo.svg"><img class="invert" width="100px" src="img/logo.svg" alt="logo"></div>
+                <div class="logo.svg">
+                    <img class="invert" width="100px" src="img/logo.svg" alt="logo" />
+                </div>
                 <ul>
-                    <li><img class="invert" src="img/home.svg" alt="home">Home</li>
-                    <li><img class="invert" src="img/search.svg" alt="search">Search</li>
+                    <li><img class="invert" src="img/home.svg" alt="home" />Home</li>
+                    <li><img class="invert" src="img/search.svg" alt="search" />Search</li>
                 </ul>
             </div>
             <div class="library bg-grey rounded m-1 p-1">
                 <div class="heading">
-                    <img class="invert" src="img/playlist.svg" alt="">
+                    <img class="invert" src="img/playlist.svg" alt="" />
                     <h2>Your Library</h2>
                 </div>
                 <div class="songList">
@@ -49,7 +51,7 @@
             <div class="header">
                 <div class="nav">
                     <div class="hamburgerContainer">
-                        <img width="40" class="invert hamburger" src="img/hamburger.svg" alt="">
+                        <img width="40" class="invert hamburger" src="img/hamburger.svg" alt="" />
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M15 6L9.70711 11.2929C9.37377 11.6262 9.20711 11.7929 9.20711 12C9.20711 12.2071 9.37377 12.3738 9.70711 12.7071L15 18"
@@ -64,14 +66,14 @@
                 </div>
 
                 <div class="install-btn">
-                    <img class="invert" src="img/install.svg" alt="">
+                    <img class="invert" src="img/install.svg" alt="" />
                     <a href="/path/to/your-app-file.zip" download="YourAppName" class="install-btn">
                         <span class="btn-text">Install App</span>
                     </a>
                 </div>
                 <div class="button">
-                    <button class="signupbtn">Sign up</button>
                     <button class="loginbtn">Log in</button>
+                    <button class="logoutbtn" style="display: none;">Log out</button>
                 </div>
             </div>
 
@@ -88,16 +90,16 @@
                     <div class="abovebar">
                         <div class="songinfo"></div>
                         <div class="songbuttons">
-                            <img width="30" id="previous" src="img/prevsong.svg" alt="">
-                            <img width="30" id="play" src="img/play.svg" alt="">
-                            <img width="30" id="next" src="img/nextsong.svg" alt="">
+                            <img width="30" id="previous" src="img/prevsong.svg" alt="" />
+                            <img width="30" id="play" src="img/play.svg" alt="" />
+                            <img width="30" id="next" src="img/nextsong.svg" alt="" />
                         </div>
                         <div class="timevol">
                             <div class="songtime"></div>
                             <div class="volume">
-                                <img width="25" src="img/volume.svg" alt="">
+                                <img width="25" src="img/volume.svg" alt="" />
                                 <div class="range">
-                                    <input type="range" name="volume" id="volumerange">
+                                    <input type="range" name="volume" id="volumerange" min="0" max="100" value="50" />
                                 </div>
                             </div>
                         </div>
@@ -111,15 +113,36 @@
                     <!-- Artist cards will be dynamically inserted here -->
                 </div>
             </div>
-
-
-            <!-- <div class="">
-                <h1>favroit</h1>
-            </div> -->
-
         </div>
     </div>
+
+    <!-- Overlay -->
+    <div id="overlay"></div>
+
+    <!-- Auth modal with Login and Signup forms -->
+    <div id="authModal" class="modal">
+        <!-- Login Form -->
+        <form id="loginForm">
+            <h2>Log In</h2>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Log In</button>
+            <button type="button" class="cancel">Cancel</button>
+            <p>New user? <a href="#" class="switch-form">Sign up here</a></p>
+        </form>
+
+        <!-- Signup Form (hidden by default) -->
+        <form id="signupForm" style="display:none;">
+            <h2>Sign Up</h2>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Sign Up</button>
+            <button type="button" class="cancel">Cancel</button>
+            <p>Already have an account? <a href="#" class="switch-form">Log in here</a></p>
+        </form>
+    </div>
+
     <script src="script.js" defer></script>
 </body>
-
 </html>

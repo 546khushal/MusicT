@@ -192,10 +192,31 @@ body {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     border-color: #ddd;
 }
+.logoutbtn {
+    color: rgb(34, 34, 34);
+    font-weight: 600;
+    border-radius: 21px;
+    background-color: white;
+    padding: 10px 20px;
+    min-width: 85px;
+    cursor: pointer;
+    font-size: 16px;
+    border: 1px solid transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.logoutbtn:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-color: #ddd;
+}
 
 .spotifyPlaylists {
     padding: 16px;
-
+height: 230px;
 }
  .spotifyPlaylists h1 {
         padding: 4px;
@@ -334,16 +355,16 @@ body {
     justify-content: center;
     align-items: center;
     position: fixed;
-    bottom: 30px;
+    bottom: 10px;
     filter: invert(1);
     background: #e2d9d9;
     border-radius: 10px;
     width: 69%;
     padding: 12px;
-    /* width: 70vw; */
     min-height: 40px;
-
+    z-index: 999; /* Ensure the playbar is on top */
 }
+
 
 .seekbar {
     height: 4px;
@@ -654,6 +675,75 @@ body {
     line-height: 1.4;
 }
 
+#authModal, #overlay {
+  display: none;
+}
+
+#overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+#authModal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(59, 59, 59);
+  padding: 20px;
+  z-index: 1000;
+  width: 300px;
+  border-radius: 8px;
+}
+#authModal p{
+    padding-top: 10px;
+    font-size: 12px;
+}
+#authModal p a{
+    color:#c9c5c5;
+}
+.modal {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #222;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.8);
+    z-index: 1000;
+    width: 300px;
+}
+
+.modal input {
+    width: 80%;
+    margin: 8px 0;
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+}
+
+.modal button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal button[type="submit"] {
+    background-color: #1db954;
+    color: white;
+    margin-left: 10px;
+}
+
+.modal button.cancel {
+    background-color: #555;
+    color: white;
+    margin-left: 10px;
+}
+
+
 @media (max-width: 1200px) {
     .left {
         position: absolute;
@@ -900,7 +990,7 @@ body {
     }
 
     .playbar {
-        margin-bottom: -17px;
+        margin-bottom: 5px;
         margin-right: -10px;
         padding: 18px;
         margin-top: 10px;
@@ -920,4 +1010,9 @@ body {
     .songbuttons {
         width: 50%;
     }
+    #authModal {
+  
+  width: 200px;
+
+}
 }
